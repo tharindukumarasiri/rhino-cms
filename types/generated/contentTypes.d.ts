@@ -384,6 +384,16 @@ export interface ApiBlogBlog extends Schema.CollectionType {
     slug: Attribute.String & Attribute.Required & Attribute.Unique;
     summary: Attribute.Text & Attribute.Required;
     contactForm: Attribute.Boolean;
+    order: Attribute.Integer &
+      Attribute.Required &
+      Attribute.Unique &
+      Attribute.SetMinMax<
+        {
+          min: 1;
+          max: 100;
+        },
+        number
+      >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

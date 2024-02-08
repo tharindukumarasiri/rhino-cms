@@ -40,6 +40,13 @@
     },
     "contactForm": {
       "type": "boolean"
+    },
+    "order": {
+      "type": "integer",
+      "required": true,
+      "unique": true,
+      "min": 1,
+      "max": 100
     }
   }
 }
