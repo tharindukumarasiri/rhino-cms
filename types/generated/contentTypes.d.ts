@@ -404,6 +404,51 @@ export interface ApiBlogBlog extends Schema.CollectionType {
   };
 }
 
+export interface ApiEnquiryEnquiry extends Schema.CollectionType {
+  collectionName: 'enquiries';
+  info: {
+    singularName: 'enquiry';
+    pluralName: 'enquiries';
+    displayName: 'Enquiry';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    firstName: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        maxLength: 255;
+      }>;
+    lastName: Attribute.String &
+      Attribute.SetMinMaxLength<{
+        maxLength: 255;
+      }>;
+    email: Attribute.Email & Attribute.Required;
+    phone: Attribute.String &
+      Attribute.SetMinMaxLength<{
+        maxLength: 15;
+      }>;
+    enquiry: Attribute.Text & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::enquiry.enquiry',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::enquiry.enquiry',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -834,6 +879,7 @@ declare module '@strapi/types' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'api::blog.blog': ApiBlogBlog;
+      'api::enquiry.enquiry': ApiEnquiryEnquiry;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
